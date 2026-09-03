@@ -15,7 +15,7 @@
 .marquee{overflow:hidden;border-block:1px solid #2b2925;background:var(--cream);color:var(--black)}.marquee-track{width:max-content;display:flex;align-items:center;gap:36px;padding:19px 0;animation:marquee 30s linear infinite}.marquee span{font-family:Georgia,serif;font-size:17px;font-style:italic}.marquee i{color:var(--wood);font-style:normal}@keyframes marquee{to{transform:translateX(-50%)}}
 @media(max-width:980px){:root{--container:calc(100vw - 40px)}.site-header{height:78px;grid-template-columns:1fr auto}.desktop-nav{display:none}.brand-name{display:none}.button-small{min-height:40px}.hero{min-height:720px;height:92svh}.hero-content{padding:145px 0 70px 30px}.wood-lines{top:78px}}
 @media(max-width:560px){:root{--container:calc(100vw - 28px)}.site-header{grid-template-columns:auto 1fr;gap:10px}.brand-mark{width:38px}.button-small{font-size:11px;padding-inline:13px;justify-self:end}.hero{min-height:700px;height:100svh}.hero-content{justify-content:flex-end;padding:120px 8px 90px 25px}h1{font-size:clamp(48px,14.8vw,67px);line-height:.94}.hero-copy{margin-block:24px;font-size:15px;line-height:1.55}.hero-overlay{background:linear-gradient(0deg,rgba(5,5,5,.98) 0%,rgba(5,5,5,.72) 58%,rgba(5,5,5,.18) 100%)}.hero-index{display:none}.microcopy{max-width:260px;line-height:1.5}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
 
 /* Full landing page */
 .section-light{background:#f2efe8;color:#111}.section-light .dark{color:#6f685d}.section-light .dark span{background:var(--wood)}
@@ -44,7 +44,7 @@
 @keyframes hero-in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}@keyframes section-reveal{from{opacity:.12;transform:translateY(42px)}to{opacity:1;transform:none}}
 
 @media(max-width:560px){.whatsapp-float{right:16px;bottom:16px;width:56px;height:56px}}
-@media(prefers-reduced-motion:reduce){.personal-intro,.criteria,.results-head,.comparison,.natural-copy,.natural-photo,.process-title,.timeline,.offer-copy,.offer aside,.faq-intro,.accordion,.barber-copy,.barber-grid,.map-placeholder,.location-info{animation:none}.placeholder:hover,.barber-grid .placeholder:hover{transform:none}}
+
 
 /* Conexões narrativas entre as etapas da página */
 .transition-bridge{position:relative;z-index:2;display:grid;grid-template-columns:auto minmax(120px,1fr) minmax(240px,560px) auto;align-items:center;gap:28px;min-height:112px;padding:24px max(32px,calc((100vw - 1380px)/2));background:#0e0e0d;color:#f2efe8;border-block:1px solid #2d2a25;overflow:hidden}
@@ -65,7 +65,7 @@
 
 @media(max-width:980px){.transition-bridge{grid-template-columns:auto 1fr auto}.transition-bridge p{grid-column:1/-1;grid-row:2}.map-satellite,.map-satellite iframe{min-height:500px}.contact-footer{grid-template-columns:1fr 1fr}.social-contact{grid-column:2}.contact-footer>small{grid-column:1/-1}}
 @media(max-width:560px){.transition-bridge{grid-template-columns:auto 1fr auto;gap:14px;min-height:130px;padding:24px 20px}.transition-bridge p{font-size:18px}.transition-bridge>span{font-size:8px}.map-satellite,.map-satellite iframe{min-height:420px}.contact-footer{grid-template-columns:1fr;gap:36px;padding:55px 20px 28px}.social-contact{grid-column:1}.contact-footer>small{grid-column:1}.social-square{width:50px;height:50px}}
-@media(prefers-reduced-motion:reduce){.transition-bridge i,.transition-bridge b,.timeline article:before{animation:none}.criteria div:hover{padding-left:0}}
+
 
 /* Navegação completa */
 .desktop-nav{gap:clamp(14px,1.45vw,25px)}.mobile-menu{display:none}#personalizacao,#resultados,#processo,#duvidas,#localizacao,#contato{scroll-margin-top:82px}
@@ -131,7 +131,7 @@
 @keyframes answer-in{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 @keyframes contact-pulse{50%{box-shadow:0 0 0 8px rgba(37,211,102,0),0 10px 32px rgba(0,0,0,.34)}}
 @media(max-width:700px){.pointer-glow{display:none}.motion-ready .scroll-reveal{transform:translate3d(0,18px,0) scale(.995);transition-duration:.3s,.44s}.transition-bridge:hover p{transform:none}.timeline article:hover{transform:none;padding-left:0}.comparison:hover .result-before,.comparison:hover .result-after{transform:none}}
-@media(prefers-reduced-motion:reduce){.scroll-progress,.pointer-glow{display:none}.hero-media,.hero-overlay{transform:none}.hero h1 em,.hero-content>.button:before,.offer .button:before,.final-cta .button:before,.social-square,.whatsapp-float{animation:none}.scroll-reveal{opacity:1!important;filter:none!important;transform:none!important}}
+
 @media(max-width:430px){
   .site-header .button-small{font-size:9px;padding-inline:9px}.hero-content{padding-bottom:58px}.hero h1{font-size:clamp(41px,12.6vw,54px)}.hero-copy{font-size:14px}.comparison{height:610px}.ambient-one{height:390px}.ambient-two{height:245px}.map-satellite,.map-satellite iframe{min-height:350px}
 }
@@ -192,19 +192,12 @@
   .footer-lead,.footer-address{flex-direction:column;gap:8px}
 }
 @keyframes mobile-ribbon{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
-.motion-preference{position:fixed;z-index:21;left:12px;bottom:16px;max-width:220px;min-height:44px;padding:10px 14px;border:1px solid #ad7323;border-radius:4px;background:#17130e;color:#fff;font:12px Arial,sans-serif;cursor:pointer}
 @media(max-width:700px){
-  .motion-ready .marquee .marquee-track{animation:none!important}
-  .motion-opt-in.motion-ready .scroll-reveal{opacity:0!important;transform:translate3d(0,28px,0)!important;transition:opacity .32s ease-out,transform .48s ease-out!important}
-  .motion-opt-in.motion-ready .scroll-reveal.is-visible{opacity:1!important;transform:none!important}
+  .motion-ready .marquee .marquee-track{animation:mobile-ribbon 16s linear infinite}
 }
 @keyframes mobile-photo-in{from{transform:scale(1.045)}to{transform:scale(1)}}
-@media(max-width:700px) and (prefers-reduced-motion:no-preference){
+@media(max-width:700px){
   .space-photo.is-visible img,.comparison.is-visible .result-after{animation:mobile-photo-in .65s var(--ease) both}
   .timeline article.is-visible:before{animation:timeline-pulse 1.8s ease-in-out infinite}
   .transition-bridge.is-visible b{animation:bridge-dot 1.8s ease-in-out infinite}
-}
-@media(prefers-reduced-motion:reduce){
-  .marquee .marquee-track{animation:none;will-change:auto}
-  .transition-bridge i{transform:none;transition:none}
 }
