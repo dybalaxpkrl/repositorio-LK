@@ -29,9 +29,10 @@ export default function MotionEffects() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
+    const mobile = window.matchMedia("(max-width: 700px)");
     document.documentElement.classList.add("motion-ready");
     const revealTargets = document.querySelectorAll<HTMLElement>(
-      ".personal > *, .results-head > *, .comparison, .natural-copy > *, .natural-photo, .process-title > *, .timeline article, .transition-bridge, .faq-intro > *, .accordion details, .barber-copy > *, .barber-grid > *, .location-info > *, .map-satellite, .contact-footer > *"
+      ".personal > *, .results-head > *, .comparison, .natural-copy > *, .natural-photo, .process-title > *, .timeline article, .transition-bridge, .faq-intro > *, .accordion details, .barber-copy > *, .barber-grid > *, .location-info > *, .contact-footer > *"
     );
     revealTargets.forEach((element, index) => {
       element.classList.add("scroll-reveal");
@@ -43,7 +44,9 @@ export default function MotionEffects() {
       entries => entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add("is-visible");
-          revealObserver.unobserve(entry.target);
+          if (!mobile.matches) revealObserver.unobserve(entry.target);
+        } else if (mobile.matches) {
+          entry.target.classList.remove("is-visible");
         }
       }),
       { threshold: 0.07, rootMargin: "0px 0px 2%" }

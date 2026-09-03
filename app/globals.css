@@ -174,7 +174,7 @@
   .hero-copy{max-width:100%;font-size:15px}
   .hero-content>.button{max-width:none}
   .wood-lines{display:none}
-  .marquee .marquee-track{animation:marquee 22s linear infinite;transform:translate3d(0,0,0);will-change:transform}
+  .marquee .marquee-track{animation:mobile-ribbon 16s linear infinite;transform:translate3d(0,0,0);will-change:transform;backface-visibility:hidden}
   .marquee-group span{gap:24px;padding-right:24px}
   .comparison{height:auto;min-height:0;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}
   .comparison .result-photo{width:100%;height:auto;min-height:0;aspect-ratio:4/5;object-fit:cover;object-position:center;align-self:start}
@@ -185,11 +185,18 @@
   .transition-bridge b{display:block}
   .transition-bridge i{animation:none;transform:scaleX(0);transition:transform .6s var(--ease)}
   .transition-bridge.is-visible i{transform:scaleX(1)}
-  .motion-ready .scroll-reveal{transform:translate3d(0,22px,0);transition:opacity .34s ease-out var(--reveal-delay,0ms),transform .5s var(--ease) var(--reveal-delay,0ms)}
+  .motion-ready .scroll-reveal{transform:translate3d(var(--reveal-x,0),30px,0);transition:opacity .32s ease-out var(--reveal-delay,0ms),transform .48s var(--ease) var(--reveal-delay,0ms)}
   .motion-ready .scroll-reveal.is-visible{transform:none;will-change:auto}
   .contact-footer{grid-template-columns:1fr}
   .social-contact{grid-column:1}
   .footer-lead,.footer-address{flex-direction:column;gap:8px}
+}
+@keyframes mobile-ribbon{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@keyframes mobile-photo-in{from{transform:scale(1.045)}to{transform:scale(1)}}
+@media(max-width:700px) and (prefers-reduced-motion:no-preference){
+  .space-photo.is-visible img,.comparison.is-visible .result-after{animation:mobile-photo-in .65s var(--ease) both}
+  .timeline article.is-visible:before{animation:timeline-pulse 1.8s ease-in-out infinite}
+  .transition-bridge.is-visible b{animation:bridge-dot 1.8s ease-in-out infinite}
 }
 @media(prefers-reduced-motion:reduce){
   .marquee .marquee-track{animation:none;will-change:auto}
