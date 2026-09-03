@@ -76,7 +76,7 @@
 @media(max-width:700px){
   :root{--container:calc(100vw - 32px)}
   html{max-width:100%;overflow-x:clip;overflow-y:auto}
-  body{max-width:100%;overflow:visible}
+  body{max-width:100%;overflow:clip}
   .hero{touch-action:pan-y pinch-zoom}
   .hero-media,.hero-overlay,.wood-lines{pointer-events:none}
   .personal-intro h2,.results h2,.natural h2,.process h2,.offer h2,.faq h2,.barbershop h2,.location h2{font-size:clamp(38px,11.5vw,54px);line-height:1.01}
