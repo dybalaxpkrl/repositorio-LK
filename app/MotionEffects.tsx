@@ -7,6 +7,34 @@ export default function MotionEffects() {
   const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const frame = document.querySelector<HTMLIFrameElement>(".map-satellite iframe[data-src]");
+    if (!frame) return;
+    let loaded = false;
+    let idle = 0;
+    const loadMap = () => {
+      if (loaded) return;
+      loaded = true;
+      frame.src = frame.dataset.src!;
+      observer.disconnect();
+    };
+    // Prepare the map ahead of arrival, without competing with the first swipe.
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) loadMap();
+    }, { rootMargin: "2000px 0px" });
+    observer.observe(frame);
+    const timer = window.setTimeout(() => {
+      if ("requestIdleCallback" in window) {
+        idle = window.requestIdleCallback(loadMap, { timeout: 4000 });
+      } else loadMap();
+    }, 2500);
+    return () => {
+      observer.disconnect();
+      clearTimeout(timer);
+      if (idle) window.cancelIdleCallback(idle);
+    };
+  }, []);
+
+  useEffect(() => {
     const menu = document.querySelector<HTMLDetailsElement>(".mobile-menu");
     const close = (event: Event) => {
       if (event.target instanceof Element && event.target.closest('a[href^="#"]') && menu) menu.open = false;
@@ -48,7 +76,7 @@ export default function MotionEffects() {
       }),
       { threshold: 0, rootMargin: "0px 0px -12%" }
     );
-    if (!mobile.matches) revealTargets.forEach(element => revealObserver.observe(element));
+    revealTargets.forEach(element => revealObserver.observe(element));
 
     const sections = document.querySelectorAll<HTMLElement>("section[id]");
     const navLinks = document.querySelectorAll<HTMLAnchorElement>('.desktop-nav a[href^="#"]');
@@ -66,16 +94,7 @@ export default function MotionEffects() {
       const max = document.documentElement.scrollHeight - innerHeight;
       const ratio = max > 0 ? scrollY / max : 0;
       progressRef.current?.style.setProperty("--scroll-progress", `${ratio}`);
-      document.documentElement.style.setProperty("--page-scroll", `${scrollY}px`);
-      document.documentElement.style.setProperty("--hero-drift", `${Math.min(scrollY * .16, 120)}px`);
-      if (mobile.matches) {
-        // Measure first, then update classes: effects begin only in the viewport.
-        const visible = Array.from(revealTargets, element => {
-          const rect = element.getBoundingClientRect();
-          return rect.top < innerHeight * .88 && rect.bottom > 0;
-        });
-        revealTargets.forEach((element, index) => element.classList.toggle("is-visible", visible[index]));
-      }
+      if (!mobile.matches) document.documentElement.style.setProperty("--hero-drift", `${Math.min(scrollY * .16, 120)}px`);
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(updateScroll); };
     updateScroll();
