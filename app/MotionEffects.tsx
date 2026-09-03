@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function MotionEffects() {
   const progressRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [motionEnabled, setMotionEnabled] = useState(false);
 
   useEffect(() => {
     const menu = document.querySelector<HTMLDetailsElement>(".mobile-menu");
@@ -27,9 +29,11 @@ export default function MotionEffects() {
 
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) return;
+    setReducedMotion(reduced);
+    if (reduced && !motionEnabled) return;
 
     const mobile = window.matchMedia("(max-width: 700px)");
+    document.documentElement.classList.toggle("motion-opt-in", motionEnabled);
     document.documentElement.classList.add("motion-ready");
     const revealTargets = document.querySelectorAll<HTMLElement>(
       ".personal > *, .results-head > *, .comparison, .natural-copy > *, .natural-photo, .process-title > *, .timeline article, .transition-bridge, .faq-intro > *, .accordion details, .barber-copy > *, .barber-grid > *, .location-info > *, .contact-footer > *"
@@ -49,9 +53,9 @@ export default function MotionEffects() {
           entry.target.classList.remove("is-visible");
         }
       }),
-      { threshold: 0.07, rootMargin: "0px 0px 2%" }
+      { threshold: 0, rootMargin: "0px 0px -12%" }
     );
-    revealTargets.forEach(element => revealObserver.observe(element));
+    if (!mobile.matches) revealTargets.forEach(element => revealObserver.observe(element));
 
     const sections = document.querySelectorAll<HTMLElement>("section[id]");
     const navLinks = document.querySelectorAll<HTMLAnchorElement>('.desktop-nav a[href^="#"]');
@@ -64,6 +68,8 @@ export default function MotionEffects() {
     sections.forEach(section => sectionObserver.observe(section));
 
     let raf = 0;
+    const ribbon = document.querySelector<HTMLElement>(".marquee-track");
+    const ribbonContainer = document.querySelector<HTMLElement>(".marquee");
     const updateScroll = () => {
       raf = 0;
       const max = document.documentElement.scrollHeight - innerHeight;
@@ -71,10 +77,27 @@ export default function MotionEffects() {
       progressRef.current?.style.setProperty("--scroll-progress", `${ratio}`);
       document.documentElement.style.setProperty("--page-scroll", `${scrollY}px`);
       document.documentElement.style.setProperty("--hero-drift", `${Math.min(scrollY * .16, 120)}px`);
+      if (mobile.matches) {
+        // Measure first, then update classes: effects begin only in the viewport.
+        const visible = Array.from(revealTargets, element => {
+          const rect = element.getBoundingClientRect();
+          return rect.top < innerHeight * .88 && rect.bottom > 0;
+        });
+        const ribbonTop = ribbonContainer?.getBoundingClientRect().top ?? 0;
+        const ribbonWidth = (ribbon?.scrollWidth ?? 0) / 2;
+        revealTargets.forEach((element, index) => element.classList.toggle("is-visible", visible[index]));
+        if (ribbon && ribbonWidth > 0) {
+          const distance = Math.max(0, innerHeight - ribbonTop) * .75;
+          ribbon.style.transform = `translate3d(-${distance % ribbonWidth}px,0,0)`;
+        }
+      } else {
+        if (ribbon) ribbon.style.removeProperty("transform");
+      }
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(updateScroll); };
     updateScroll();
     addEventListener("scroll", onScroll, { passive: true });
+    addEventListener("resize", onScroll, { passive: true });
 
     const onPointer = (event: PointerEvent) => {
       glowRef.current?.style.setProperty("--pointer-x", `${event.clientX}px`);
@@ -85,13 +108,15 @@ export default function MotionEffects() {
 
     return () => {
       document.documentElement.classList.remove("motion-ready");
+      document.documentElement.classList.remove("motion-opt-in");
       revealObserver.disconnect();
       sectionObserver.disconnect();
       removeEventListener("scroll", onScroll);
+      removeEventListener("resize", onScroll);
       removeEventListener("pointermove", onPointer);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [motionEnabled]);
 
-  return <><div ref={progressRef} className="scroll-progress" aria-hidden="true"/><div ref={glowRef} className="pointer-glow" aria-hidden="true"/></>;
+  return <>{reducedMotion && <button className="motion-preference" aria-pressed={motionEnabled} onClick={() => setMotionEnabled(value => !value)}>{motionEnabled ? "Reduzir efeitos" : "Ativar efeitos de rolagem"}</button>}<div ref={progressRef} className="scroll-progress" aria-hidden="true"/><div ref={glowRef} className="pointer-glow" aria-hidden="true"/></>;
 }

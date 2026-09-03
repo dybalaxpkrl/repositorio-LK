@@ -192,6 +192,12 @@
   .footer-lead,.footer-address{flex-direction:column;gap:8px}
 }
 @keyframes mobile-ribbon{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+.motion-preference{position:fixed;z-index:21;left:12px;bottom:16px;max-width:220px;min-height:44px;padding:10px 14px;border:1px solid #ad7323;border-radius:4px;background:#17130e;color:#fff;font:12px Arial,sans-serif;cursor:pointer}
+@media(max-width:700px){
+  .motion-ready .marquee .marquee-track{animation:none!important}
+  .motion-opt-in.motion-ready .scroll-reveal{opacity:0!important;transform:translate3d(0,28px,0)!important;transition:opacity .32s ease-out,transform .48s ease-out!important}
+  .motion-opt-in.motion-ready .scroll-reveal.is-visible{opacity:1!important;transform:none!important}
+}
 @keyframes mobile-photo-in{from{transform:scale(1.045)}to{transform:scale(1)}}
 @media(max-width:700px) and (prefers-reduced-motion:no-preference){
   .space-photo.is-visible img,.comparison.is-visible .result-after{animation:mobile-photo-in .65s var(--ease) both}
