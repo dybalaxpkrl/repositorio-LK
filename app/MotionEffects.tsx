@@ -7,12 +7,31 @@ export default function MotionEffects() {
   const glowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const menu = document.querySelector<HTMLDetailsElement>(".mobile-menu");
+    const close = (event: Event) => {
+      if (event.target instanceof Element && event.target.closest('a[href^="#"]') && menu) menu.open = false;
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && menu?.open) {
+        menu.open = false;
+        menu.querySelector("summary")?.focus();
+      }
+    };
+    menu?.addEventListener("click", close);
+    document.addEventListener("keydown", escape);
+    return () => {
+      menu?.removeEventListener("click", close);
+      document.removeEventListener("keydown", escape);
+    };
+  }, []);
+
+  useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
     document.documentElement.classList.add("motion-ready");
     const revealTargets = document.querySelectorAll<HTMLElement>(
-      ".personal > *, .results-head > *, .comparison, .natural-copy > *, .natural-photo, .process-title > *, .timeline article, .offer-copy > *, .offer aside, .faq-intro > *, .accordion details, .barber-copy > *, .barber-grid > *, .location-info > *, .map-satellite, .final-cta > *, .contact-footer > *"
+      ".personal > *, .results-head > *, .comparison, .natural-copy > *, .natural-photo, .process-title > *, .timeline article, .transition-bridge, .faq-intro > *, .accordion details, .barber-copy > *, .barber-grid > *, .location-info > *, .map-satellite, .contact-footer > *"
     );
     revealTargets.forEach((element, index) => {
       element.classList.add("scroll-reveal");
@@ -58,7 +77,8 @@ export default function MotionEffects() {
       glowRef.current?.style.setProperty("--pointer-x", `${event.clientX}px`);
       glowRef.current?.style.setProperty("--pointer-y", `${event.clientY}px`);
     };
-    addEventListener("pointermove", onPointer, { passive: true });
+    const hasMouse = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (hasMouse) addEventListener("pointermove", onPointer, { passive: true });
 
     return () => {
       document.documentElement.classList.remove("motion-ready");

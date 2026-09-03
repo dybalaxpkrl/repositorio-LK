@@ -40,6 +40,7 @@ export default function Home() {
     <header className="site-header">
       <a className="brand" href="#inicio" aria-label="Barbearia LK — início"><img className="real-logo" src="/logo-barbearia-lk.jpeg" alt="Logo da Barbearia LK"/></a>
       <nav className="desktop-nav" aria-label="Navegação principal"><a className="active" href="#inicio">Início</a><a href="#personalizacao">Prótese capilar</a><a href="#resultados">Resultados</a><a href="#processo">Como funciona</a><a href="#duvidas">FAQ</a><a href="#localizacao">Localização</a><a href="#contato">Contato</a></nav>
+      <details className="mobile-menu"><summary aria-label="Menu de navegação"><span/><span/><span/></summary><nav aria-label="Navegação mobile"><a href="#inicio">Início</a><a href="#personalizacao">Prótese capilar</a><a href="#resultados">Resultados</a><a href="#processo">Como funciona</a><a href="#duvidas">FAQ</a><a href="#localizacao">Localização</a><a href="#contato">Contato</a></nav></details>
     </header>
 
     <section className="hero" id="inicio">
@@ -48,7 +49,7 @@ export default function Home() {
       <div className="hero-index" aria-hidden="true"><span>01</span><span>Barbearia LK</span></div>
     </section>
 
-    <div className="marquee" aria-label="Prótese capilar, naturalidade, estilo, autoestima e personalização"><div className="marquee-track"><span>Prótese capilar</span><i>•</i><span>Naturalidade</span><i>•</i><span>Estilo</span><i>•</i><span>Autoestima</span><i>•</i><span>Personalização</span><i>•</i><span aria-hidden="true">Prótese capilar</span><i aria-hidden="true">•</i><span aria-hidden="true">Naturalidade</span><i aria-hidden="true">•</i><span aria-hidden="true">Estilo</span><i aria-hidden="true">•</i></div></div>
+    <div className="marquee" aria-label="Prótese capilar, naturalidade, estilo, autoestima e personalização"><div className="marquee-track">{[0,1].map(copy=><div className="marquee-group" key={copy} aria-hidden={copy===1 ? true : undefined}>{["Prótese capilar","Naturalidade","Estilo","Autoestima","Personalização"].map(word=><span key={word}>{word}<i aria-hidden="true">•</i></span>)}</div>)}</div></div>
 
     <section className="personal section-light" id="personalizacao"><div className="section-number">02</div><div className="personal-intro"><p className="eyebrow dark"><span/> Feita para você</p><h2>Não existe uma única solução para todos os tipos de calvície.</h2><p>Uma entrada, uma área extensa ou uma mudança de densidade pedem leituras diferentes. A avaliação conecta o que você tem hoje ao resultado que deseja.</p></div><div className="criteria" aria-label="Critérios da avaliação">{criteria.map((item, i)=><div key={item}><span>0{i+1}</span><strong>{item}</strong></div>)}</div><div className="personal-end"><p>É por isso que tudo começa<br/><em>pela avaliação.</em></p></div></section>
 
