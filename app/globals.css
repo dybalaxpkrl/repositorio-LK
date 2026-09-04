@@ -1,4 +1,7 @@
 @import "tailwindcss";
+.natural-photo.real-detail{position:relative;margin:0;overflow:hidden;background:#272723}
+.real-detail img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center 32%}
+@media(max-width:700px){.natural-photo.real-detail{min-height:0;aspect-ratio:4/5}.real-detail img{object-position:center}}
 /* Equal copies keep the keyword ribbon seamless on every screen. */
 .marquee .marquee-track{gap:0}
 .marquee-group{display:flex;align-items:center;flex-shrink:0}

@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 };
 
 const message = encodeURIComponent("Olá! Vim pelo site da Barbearia LK e gostaria de agendar uma avaliação para prótese capilar.");
-const whatsapp = `https://wa.me/?text=${message}`; // Substituir pelo número real: https://wa.me/55DDDNUMERO?text=...
-const instagram = "https://www.instagram.com/"; // Substituir pelo perfil oficial da Barbearia LK.
+const whatsapp = `https://wa.me/5513991865121?text=${message}`;
+const instagram = "https://www.instagram.com/lk_protesecapilar/";
 const mapsUrl = "https://www.google.com/maps?q=Rua+Dom+Duarte+da+Costa,+253,+Sao+Vicente,+SP&output=embed&t=k&z=18";
 const criteria = ["Área de cobertura", "Cabelo atual", "Resultado desejado", "Integração natural", "Densidade", "Linha frontal"];
 const steps = [
@@ -19,15 +19,18 @@ const steps = [
   ["05", "Manutenção", "Cuidados e acompanhamento para manter o resultado."],
 ];
 const faqs = [
-  "Quanto tempo dura?", "O resultado fica natural?", "Posso viver normalmente com a prótese?", "Posso tomar banho?", "Posso praticar esportes?", "Posso dormir com a prótese?", "Posso retirar e colocar novamente?", "De quanto em quanto tempo preciso fazer manutenção?",
+  ["Quanto tempo dura?", "A durabilidade varia conforme os cuidados de cada pessoa. A estimativa da Barbearia LK é de 10 a 12 meses, com a rotina de cuidados e as manutenções adequadas."],
+  ["O resultado fica natural?", "Sim. A escolha da prótese, a linha frontal, o corte e o acabamento são pensados para integrar o resultado ao seu visual. A percepção pode variar, principalmente para quem já conhecia você antes da aplicação."],
+  ["Posso viver normalmente com a prótese?", "Sim, você pode manter sua rotina normalmente, seguindo as orientações de cuidado e mantendo as manutenções em dia."],
+  ["Posso tomar banho?", "Sim. Use água morna e lave com movimentos suaves, sem esfregar ou puxar a base e a linha frontal. Utilize os produtos indicados pela equipe e, após a aplicação ou manutenção, respeite o prazo recomendado para molhar a prótese, que depende do adesivo utilizado."],
+  ["Posso praticar esportes?", "Sim. Atendemos clientes que trabalham como personal trainers, nadam e jogam futebol. Os cuidados e a frequência de manutenção devem acompanhar a sua rotina, especialmente com suor e contato frequente com a água. Após a aplicação, siga o prazo orientado para retomar essas atividades."],
+  ["Posso dormir com a prótese?", "Sim, você pode dormir com a prótese. Para ajudar a conservar os fios e reduzir o atrito, a equipe recomenda utilizar uma touca adequada, sem apertar a peça."],
+  ["Posso retirar e colocar novamente?", "Sim, a prótese pode ser retirada e reaplicada. A remoção, a limpeza e a nova fixação devem ser feitas com os produtos e a técnica adequados. Peça orientação à equipe antes de fazer esse processo por conta própria."],
+  ["De quanto em quanto tempo preciso fazer manutenção?", "Em média, a cada 15 a 20 dias. O intervalo pode variar conforme sua rotina, transpiração e condições de fixação. A equipe orientará a frequência mais adequada ao seu caso."],
 ];
 
 function CTA({ children = "Agendar avaliação", className = "" }: { children?: React.ReactNode; className?: string }) {
   return <a className={`button ${className}`} href={whatsapp} target="_blank" rel="noreferrer">{children}<span aria-hidden="true">↗</span></a>;
-}
-
-function Placeholder({ label, guide, className = "" }: { label: string; guide: string; className?: string }) {
-  return <div className={`placeholder ${className}`} role="img" aria-label={`Espaço reservado: ${label}. ${guide}`}><span>{label}</span><small>{guide}</small></div>;
 }
 
 function TransitionBridge({ from, to, text }: { from: string; to: string; text: string }) {
@@ -59,7 +62,7 @@ export default function Home() {
 
     <section className="results" id="resultados"><div className="results-head"><div><p className="eyebrow"><span/> Resultados reais</p><h2>Veja o que uma solução feita para o seu caso pode mudar.</h2></div><p>Sem promessas genéricas. O resultado precisa conversar com o rosto, o cabelo e o estilo de cada pessoa.</p></div><div className="comparison"><div className="compare-label before">Antes</div><img className="result-photo result-before" src="/resultado-antes.jpeg" alt="Cliente antes da aplicação da prótese capilar" loading="lazy"/><img className="result-photo result-after" src="/resultado-depois.jpeg" alt="Cliente depois da aplicação da prótese capilar" loading="lazy"/><div className="divider"><span>↔</span></div><div className="compare-label after">Depois</div></div><p className="media-disclaimer">Resultado real realizado pela Barbearia LK. Cada caso possui características individuais.</p></section>
 
-    <section className="natural section-light"><div className="natural-copy"><p className="eyebrow dark"><span/> Naturalidade</p><h2>O objetivo não é<br/>parecer uma prótese.</h2><p>A prótese precisa integrar cabelo, corte e acabamento em um único resultado visual.</p><ol>{["Linha frontal", "Densidade", "Integração", "Corte", "Acabamento"].map((x,i)=><li key={x}><span>0{i+1}</span>{x}</li>)}</ol></div><Placeholder label="Detalhe do resultado" guide="Foto aproximada da linha frontal, nítida e feita com luz natural" className="natural-photo"/></section>
+    <section className="natural section-light"><div className="natural-copy"><p className="eyebrow dark"><span/> Naturalidade</p><h2>O objetivo não é<br/>parecer uma prótese.</h2><p>A prótese precisa integrar cabelo, corte e acabamento em um único resultado visual.</p><ol>{["Linha frontal", "Densidade", "Integração", "Corte", "Acabamento"].map((x,i)=><li key={x}><span>0{i+1}</span>{x}</li>)}</ol></div><figure className="natural-photo real-detail"><img src="/detalhe-resultado.jpeg" alt="Detalhe da linha frontal e do acabamento da prótese capilar na Barbearia LK" width="1024" height="1280" loading="lazy" decoding="async"/></figure></section>
 
     <TransitionBridge from="Detalhe" to="Consistência" text="Naturalidade não acontece por acaso. Ela é construída em cada etapa."/>
 
@@ -67,7 +70,7 @@ export default function Home() {
 
     <TransitionBridge from="Aplicação" to="Acompanhamento" text="O cuidado continua depois do primeiro resultado."/>
 
-    <section className="faq section-light" id="duvidas"><div className="faq-intro"><p className="eyebrow dark"><span/> Dúvidas frequentes</p><h2>Antes de decidir,<br/>pergunte tudo.</h2><p>As respostas técnicas serão incluídas após validação da equipe da Barbearia LK.</p></div><div className="accordion">{faqs.map((q,i)=><details key={q}><summary><span>{String(i+1).padStart(2,"0")}</span>{q}<b aria-hidden="true">+</b></summary><p data-status="aguardando-validacao">Resposta aguardando validação técnica do cliente.</p></details>)}<details><summary><span>09</span>Quanto custa uma prótese capilar?<b aria-hidden="true">+</b></summary><p>O valor varia conforme as características e necessidades de cada caso, por isso é necessário realizar uma avaliação antes da definição do investimento.</p></details></div></section>
+    <section className="faq section-light" id="duvidas"><div className="faq-intro"><p className="eyebrow dark"><span/> Dúvidas frequentes</p><h2>Antes de decidir,<br/>pergunte tudo.</h2><p>Entenda os cuidados, a manutenção e o que esperar da sua prótese capilar.</p></div><div className="accordion">{faqs.map(([q,answer],i)=><details key={q}><summary><span>{String(i+1).padStart(2,"0")}</span>{q}<b aria-hidden="true">+</b></summary><p>{answer}</p></details>)}<details><summary><span>09</span>Quanto custa uma prótese capilar?<b aria-hidden="true">+</b></summary><p>O valor varia conforme as características e necessidades de cada caso, por isso é necessário realizar uma avaliação antes da definição do investimento.</p></details></div></section>
 
     <section className="barbershop"><div className="barber-copy"><p className="eyebrow"><span/> A Barbearia LK</p><h2>Um espaço preparado para cuidar de todo o seu visual.</h2><p>Conheça o ambiente onde cada avaliação, aplicação e acabamento acontece com atenção, estrutura e discrição.</p></div><div className="barber-grid" aria-label="Fotos do espaço da Barbearia LK"><figure className="space-photo space-main"><img src="/barbearia-interior.jpeg" alt="Visão completa do espaço interno da Barbearia LK" loading="lazy"/><figcaption>O espaço completo</figcaption></figure><figure className="space-photo"><img src="/area-aplicacao-1.jpeg" alt="Primeira área reservada para aplicação de prótese capilar" loading="lazy"/><figcaption>Área de aplicação</figcaption></figure><figure className="space-photo"><img src="/area-aplicacao-2.jpeg" alt="Segunda área de atendimento e aplicação de prótese capilar" loading="lazy"/><figcaption>Atendimento especializado</figcaption></figure></div></section>
 
