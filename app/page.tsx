@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   description: "Avaliação personalizada para prótese capilar, definida para a sua área de cobertura e o resultado que você procura.",
 };
 
-const message = encodeURIComponent("Olá! Vim pelo site da Barbearia LK e gostaria de agendar uma avaliação para prótese capilar.");
-const whatsapp = `https://wa.me/5513991865121?text=${message}`;
+const message = encodeURIComponent("Olá! Vim pelo site da Barbearia LK e quero saber mais.");
+const whatsapp = `https://wa.me/5513978013681?text=${message}`;
 const instagram = "https://www.instagram.com/lk_protesecapilar/";
 const mapsUrl = "https://www.google.com/maps?q=Rua+Dom+Duarte+da+Costa,+253,+Sao+Vicente,+SP&output=embed&t=k&z=18";
 const criteria = ["Área de cobertura", "Cabelo atual", "Resultado desejado", "Integração natural", "Densidade", "Linha frontal"];
